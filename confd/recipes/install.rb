@@ -3,7 +3,6 @@ ark 'confd' do
   has_binaries ['confd']
   version node['confd']['version']
   url "https://github.com/kelseyhightower/confd/releases/download/v#{node['confd']['version']}/confd_#{node['confd']['version']}_linux_amd64.tar.gz"
-  checksum node['confd']['sha256']
   strip_leading_dir false
   action :install
 end
