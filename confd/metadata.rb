@@ -1,23 +1,15 @@
-name 'confd'
-source_url 'https://github.com/chef-cookbooks/confd'
-issues_url 'https://github.com/chef-cookbooks/confd/issues'
-maintainer 'John Bellone'
-maintainer_email 'jbellone@bloomberg.net'
-license 'Apache 2.0'
-description 'Application cookbook which installs and configures confd.'
-long_description 'Application cookbook which installs and configures confd.'
-version '1.1.2'
+name             'confd'
+maintainer       'Robert Coleman'
+maintainer_email 'github@robert.net.nz'
+license          'MIT'
+description      'Installs/Configures confd'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version          '0.1.1'
 
-depends 'poise', '>= 2.2'
-depends 'poise-service', '>= 1.3'
-depends 'rc', '>=1.6'
- 
-supports'amazon'
-supports 'centos'
-supports 'debian'
-supports 'fedora'
-supports 'oracle'
-supports 'redhat'
-supports 'scientific'
-supports 'ubuntu'
+%w{debian ubuntu}.each do |os|
+  supports os
+end
 
+%w{ark}.each do |cookbook|
+  depends cookbook
+end

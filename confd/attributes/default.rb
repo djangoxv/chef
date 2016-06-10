@@ -1,16 +1,11 @@
-#
-# Cookbook: confd
-# License: Apache 2.0
-#
-# Copyright 2015, Bloomberg Finance L.P.
-#
+default['confd']['version'] = "0.1.1-rc2"
+default['confd']['sha256'] = "0b595add7e5b48df9f9fa8445e7e65b50a238ca26faca4a0dd2c6a1b817c5c88"
 
-default['confd']['service_name'] = 'confd'
+default['confd']['confdir'] = "/etc/confd"
+default['confd']['interval'] = "600"
+default['confd']['prefix'] = "/"
+default['confd']['etcd_nodes'] = nil
+default['confd']['client_cert'] = nil
+default['confd']['client_key'] = nil
 
-default['confd']['config'] = {}
-default['confd']['service']['config_file'] = '/etc/confd/confd.toml'
-default['confd']['service']['install_method'] = 'binary'
-default['confd']['service']['install_path'] = '/opt/confd'
-
-default['confd']['service']['remote_url'] = 'https://github.com/kelseyhightower/confd/releases/download/v0.10.0/confd-0.10.0-linux-amd64'
-default['confd']['service']['remote_checksum'] = '9035fa8b23d9e776eca237a0a6bb15caa999d4767596362eea3e61c7b92ca88d'
+default['confd']['extra'] = nil
