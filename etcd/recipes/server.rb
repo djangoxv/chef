@@ -10,8 +10,8 @@ end
 script 'load_etcd' do
   interpreter "bash"
   code <<-EOH
-    rds_bundle=`curl http://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem`
-    etcdctl put foo "$rds_bundle"
+    rds=`curl -s http://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem`
+    curl -X PUT http://localhost:2379/v2/keys/foo -d "value=$rds"
     EOH
 end
 
