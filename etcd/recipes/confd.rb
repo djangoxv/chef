@@ -8,9 +8,10 @@ end
 
 file '/etc/confd/conf.d/foo.toml' do
   content '
-    src = \"foo.conf.tmpl\"
-    dest = \"/tmp/foo\"
-    keys = [\"/foo\",]'
+[template]
+src = "foo.conf.tmpl"
+dest = "/tmp/foo"
+keys = ["/foo",]'
   mode '0755'
   owner 'root'
   group 'root'
