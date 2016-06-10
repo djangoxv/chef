@@ -10,7 +10,7 @@ supports 'ubuntu', '>= 12.04'
 supports 'redhat', '>= 5.8'
 supports 'centos', '>= 5.8'
 
-depends 'poise', '~> 2.2'
+depends 'poise', '~> 2.2.1'
 depends 'poise-service', '~> 1.0'
 depends 'rc', '~> 1.3'
 
