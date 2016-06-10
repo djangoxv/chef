@@ -7,12 +7,11 @@ etcd_service_manager_systemd 'default' do
   action :start
 end
 
-http_request 'rds_bundle' do
-  url 'http://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem'
-end
-
-etcd_key "/foo" do
-  value rds_bundle
-  action :set
+script 'load_etcd' do
+  interpreter "bash"
+  code <<-EOH
+    rds_bundle=`curl http://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem`
+    etcdctl put foo "$rds_bundle"
+    EOH
 end
 
