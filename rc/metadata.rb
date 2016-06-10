@@ -6,6 +6,8 @@ maintainer_email 'johnb@chef.io'
 license 'Apache 2.0'
 version '1.6.4'
 
+depends 'poise', '>= 2.2'
+
 supports 'amazon'
 supports 'centos'
 supports 'debian'

@@ -8,11 +8,11 @@ description 'Application cookbook which installs and configures confd.'
 long_description 'Application cookbook which installs and configures confd.'
 version '1.1.2'
 
-depends 'poise', '= 2.7.0'
-depends 'poise-service', '= 1.3.1'
-depends 'rc', '=1.6.4'
-
-supports 'amazon'
+depends 'poise', '>= 2.2'
+depends 'poise-service', '>= 1.3'
+depends 'rc', '>=1.6'
+ 
+supports'amazon'
 supports 'centos'
 supports 'debian'
 supports 'fedora'
