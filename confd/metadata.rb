@@ -11,8 +11,8 @@ supports 'redhat', '>= 5.8'
 supports 'centos', '>= 5.8'
 
 depends 'poise'
-depends 'poise-service', '~> 1.0'
-depends 'rc', '~> 1.3'
+depends 'poise-service'
+depends 'rc'
 
 source_url 'https://github.com/bloomberg/confd-cookbook' if defined?(source_url)
 issues_url 'https://github.com/bloomberg/confd-cookbook/issues' if defined?(issues_url)
