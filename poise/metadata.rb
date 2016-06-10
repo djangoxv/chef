@@ -1,10 +1,11 @@
-name 'rc'
-source_url 'https://github.com/chef-cookbooks/rc'
-issues_url 'https://github.com/chef-cookbooks/rc/issues'
+name 'poise'
+source_url 'https://github.com/chef-cookbooks/poise'
+issues_url 'https://github.com/chef-cookbooks/poise/issues'
 maintainer 'John B'
 maintainer_email 'johnb@chef.io'
 license 'Apache 2.0'
-version '1.6.4'
+version '2.7.0'
+
 
 supports 'amazon'
 supports 'centos'
