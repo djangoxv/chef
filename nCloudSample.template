@@ -44,21 +44,19 @@
   "Resources": {
     "nCloudSampleVPC": {
       "Type": "AWS::EC2::VPC",
-      "Properties": {},
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "aee58b99-0d05-4e2f-b922-d308876bbc70"
-        }
+      "Properties": {
+    	    "EnableDnsSupport" : "true",
+    	    "EnableDnsHostnames" : "true",
+            "InstanceTenancy" : "default",
+            "Tags" : [ {"Key": "Name", "Value" : "nCloudSample"} ],
       }
     },
     "nCloudSampleOWS": {
       "Type": "AWS::OpsWorks::Stack",
-      "Properties": {},
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "65b40af1-500d-40a0-987b-f1f9f2ca55f3"
-        }
-      }
+      "Properties": {
+           "ConfigurationManager" : "12",   
+           "CustomCookbooksSource" : "https://github.com/djangoxv/chef.git"
+      },
     },
     "etcd": {
       "Type": "AWS::OpsWorks::Layer",
@@ -66,11 +64,12 @@
         "StackId": {
           "Ref": "nCloudSampleOWS"
         }
+        "CustomRecipes" :  "Setup" : [ "etcd::server", "etcd::confd", ]
+        "EnableAutoHealing" : "true",
+        "AutoAssignElasticIps" : "false",
+        "AutoAssignPublicIps" : "true",
+        "Name": "etcd" 
       },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "b26eb17d-cdec-4842-b1df-fb14590d7a37"
-        }
       }
     }
   }
