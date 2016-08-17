@@ -1,5 +1,31 @@
 # Docker Cookbook Changelog
 
+## v2.9.5
+- bumping docker-api gem
+
+## v2.9.4
+- Switch to the dockerd binary on 1.12+
+- Add links to resources overview list
+
+## v2.9.3
+- add uts_mode support for docker_container provider (#730)
+
+## v2.9.2
+- adding feature ReadonlyRootfs
+- bumping docker version to 1.11.2
+- removing etcd, fails tests for xenial and swarm will have it builtin in 1.12
+
+## v2.9.1
+- implement userns_mode for containers
+
+## v2.9.0
+- Feature - docker_installation_tarball resource
+- Patch - Adding missing http_proxy support to rhel/sysvinit
+- Patch #705 - Avoid installing docker-api gem in ChefSpec
+
+## v2.8.0
+- Feature - User namespace configuration capability for docker_service
+
 ## v2.7.1
 
 - Updated test matrix in the readme to reflect reality

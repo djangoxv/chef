@@ -90,35 +90,37 @@ Configuration of the backing storage driver, including kernel module loading, is
 
 ## Resources Overview
 
-- `docker_service`: composite resource that uses docker_installation and docker_service_manager
-- `docker_installation`: automatically select an installation method
-- `docker_service_manager`: automatically selects a service manager
+- [docker_service](#docker_service): composite resource that uses docker_installation and docker_service_manager
 
-- `docker_installation_binary`: copies a pre-compiled docker binary onto disk
+- [docker_installation](#docker_installation): automatically select an installation method
 
-- `docker_installation_script`: curl | bash
+- [docker_service_manager](#docker_service_manager): automatically selects a service manager
 
-- `docker_installation_package`: package 'docker-engine'
+- [docker_installation_binary](#docker_installation_binary): copies a pre-compiled docker binary onto disk
 
-- `docker_service_manager_execute`: manage docker daemon with Chef
+- [docker_installation_script](#docker_installation_script): curl | bash
 
-- `docker_service_manager_sysvinit`: manage docker daemon with a sysvinit script
+- [docker_installation_package](#docker_installation_package): package 'docker-engine'
 
-- `docker_service_manager_upstart`: manage docker daemon with upstart script
+- [docker_service_manager_execute](#docker_service_manager_execute): manage docker daemon with Chef
 
-- `docker_service_manager_systemd`: manage docker daemon with systemd unit files
+- [docker_service_manager_sysvinit](#docker_service_manager_sysvinit): manage docker daemon with a sysvinit script
 
-- `docker_image`: image/repository operations
+- [docker_service_manager_upstart](#docker_service_manager_upstart): manage docker daemon with upstart script
 
-- `docker_container`: container operations
+- [docker_service_manager_systemd](#docker_service_manager_systemd): manage docker daemon with systemd unit files
 
-- `docker_tag`: image tagging operations
+- [docker_image](#docker_image): image/repository operations
 
-- `docker_registry`: registry operations
+- [docker_container](#docker_container): container operations
 
-- `docker_network`: network operations
+- [docker_tag](#docker_tag): image tagging operations
 
-- `docker_volume`: volume operations
+- [docker_registry](#docker_registry): registry operations
+
+- [docker_network](#docker_network): network operations
+
+- [docker_volume](#docker_volume): volume operations
 
 ## Getting Started
 
@@ -232,6 +234,27 @@ end
 
 - `version` - The desired version of docker. Used to calculate source.
 - `source` - Path to network accessible Docker binary. Ignores version
+- `checksum` - SHA-256
+
+## docker_installation_tarball
+
+The `docker_installation_tarball` resource copies the precompiled Go binary tarball onto the disk. It exists to help run newer Docker versions from 1.11.0 onwards. It should not be used in production, especially with devicemapper.
+
+### Example
+
+```ruby
+docker_installation_tarball 'default' do
+  version '1.11.0'
+  source 'https://my.computers.biz/dist/docker.tgz'
+  checksum '97a3f5924b0b831a310efa8bf0a4c91956cd6387c4a8667d27e2b2dd3da67e4d'
+  action :create
+end
+```
+
+### Properties
+
+- `version` - The desired version of docker. Used to calculate source.
+- `source` - Path to network accessible Docker binary tarball. Ignores version
 - `checksum` - SHA-256
 
 ## docker_installation_script
@@ -423,7 +446,10 @@ The `docker_service` resource property list mostly corresponds to the options fo
 - `logfile` - Location of Docker daemon log file
 - `userland_proxy`- Enables or disables docker-proxy
 - `disable_legacy_registry` - Do not contact legacy registries
-- `userns_remap` - Configure namespace remapping
+- `userns_remap` - Enable user namespace remapping options - `default`, `uid`, `uid:gid`, `username`, `username:groupname` (see: [Docker User Namespaces](see: https://docs.docker.com/v1.10/engine/reference/commandline/daemon/#daemon-user-namespace-options))
+
+##### Miscellaneous Options
+- `misc_opts` - Pass the docker daemon any other options bypassing flag validation, supplied as `--flag=value`
 
 ### Actions
 
@@ -1071,6 +1097,11 @@ Most `docker_container` properties are the `snake_case` version of the `CamelCas
 - `tls_ca_cert` - Trust certs signed only by this CA. Defaults to ENV['DOCKER_CERT_PATH'] if set
 - `tls_client_cert` - Path to TLS certificate file for docker cli. Defaults to ENV['DOCKER_CERT_PATH'] if set
 - `tls_client_key` - Path to TLS key file for docker cli. Defaults to ENV['DOCKER_CERT_PATH'] if set
+- `userns_mode` - Modify the user namespace mode - Defaults to `nil`, example option: `host`
+- `pid_mode` - Set the PID (Process) Namespace mode for the container. `host`: use the host's PID namespace inside the container. 
+- `ipc_mode` - Set the IPC mode for the container - Defaults to `nil`, example option: `host`
+- `uts_mode` - Set the UTS namespace mode for the container. The UTS namespace is for setting the hostname and the domain that is visible to running processes in that namespace. By default, all containers, including those with `--network=host`, have their own UTS namespace. The host setting will result in the container using the same UTS namespace as the host. Note that --hostname is invalid in host UTS mode.
+- `ro_rootfs` - Mount the container's root filesystem as read only. Defaults to `false`
 
 ### Actions
 
