@@ -1,0 +1,27 @@
+#cloud-config
+chef:
+
+  install_type: "omnibus"
+  force_install: false
+
+  server_url: "https://api.chef.io/organizations/django-demo"
+  validation_name: "django-demo-validator"
+
+  validation_cert: |
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEowIBAAK
+    uluLKKKy7gwfq8r
+    -----END RSA PRIVATE KEY-----
+ 
+  run_list:
+    - "recipe[chef-apt-docker]"
+    - "recipe[docker::install_docker]"
+    - "recipe[gotz]"
+
+
+runcmd:
+  - /usr/bin/chef-client -d -c /etc/chef/client.rb -i 120 -s 10 -L /var/log/chef/client.log
+  - /usr/bin/chef-client -j /etc/chef/firstboot.json
+  - rm /etc/chef/validation.pem
+
+output: {all: '| tee -a /var/log/cloud-init-output.log'}
